@@ -19,7 +19,7 @@
     \[R(x, y, t) + G(x, y, t) + B(x, y, t)\]
 \end{itemize}
 
-\subsection{Classificação}
+\subsection{Classificação em dimensões}
 \begin{itemize}
     \item Sinais, neste escopo, podem então ser classificados em dimensionalidade e número de canais (canais estes que dependem de variáveis).
     \item Sinais podem ser \textbf{discretos} ou \textbf{contínuos}.
@@ -64,7 +64,7 @@
     
 \end{itemize}
 
-\subsection{Norma}
+\section{Operações em sequências}
 \begin{itemize}
     \item Tamanho do sinal pode ser definido usando representação no espaço $L_{p}$:
     
@@ -73,7 +73,7 @@
     onde $p = 2$ dá o RMS do sinal, $p = 1$ é o valor médio absoluto e $p = \infty$ é o valor absoluto de pico da sequência.
 
 \end{itemize}
-\subsection{Operações em sequências}
+\subsection{Operações básicas}
 \begin{itemize}
     \item \textbf{Modulação em amplitude}:
     \[y[n] = x[n] \cdot w[n] \]
@@ -95,6 +95,132 @@
     Para $N > 0$, atraso
     Para $N < 0$, avanço
 
+    \item \textbf{Reversão}:
     
+    \[y[n] = x[-n]\]
+
+    Como algumas operações requerem um comprimento igual das sequências, pode-se encher a menor com zeros afim de aplicar as operações.
+
+    \item \textbf{Ensemble Average}:
     
+    Seja $d_{i}$ um vetor de ruído aditivo aleatório interferindo na i-ésima medida $s$ de algum dado
+
+    \[x_{i} = s + d_{i}\]
+
+    \[ \bar{x} = \frac{1}{K} \sum_{i = 1}^{K}x_{i} = \frac{1}{K} \sum_{i = 1}^{K}s + d_{i} = s + \frac{1}{K} \sum_{i = 1}^{K} d_{i} \]
+
+    O termo $s$ sai do somatório dado que 
+
+    \[\sum_{i = 1}^{K}s = K \cdot s\]
+
+    assumindo que seja um sinal totalmente reprodutível. 
+        
+\end{itemize}
+
+\subsection{Alteração de taxa de Amostragem}
+
+\begin{itemize}
+    \item Adaptar a taxa para interconectar sistemas.
+    
+    Seja uma sequência $x[n]$ com uma TA $F$. Quer-se adaptar essa taxa gerando um novo sinal $y[n]$ com TA $F'$.
+
+    \item Pode se definir uma Razão de Alteração
+    
+    \[R = \frac{F'}{F}\]
+
+    Se $R > 1$, tem-se interpolação.
+
+    Se $R > 1$, tem-se decimação.
+
+    \item \textbf{Interpolação}:
+    
+    Por fator inteiro $L > 1$: Inserção de $L - 1$ amostras com valor zero entre cada ponto da sequência já estabelecido. Um upsampling.
+
+    \item \textbf{Decimação}:
+    
+    Por fator inteiro $M > 1$: Remoção de $M - 1$ amostras entre cada duas consecutivas da sequência já estabelecida.
+
+    Literalmente matar amostras de maneira periódica.
+
+\end{itemize}
+
+\section{Classificação de sinais}
+\subsection{Simetria}
+\begin{itemize}
+    \item Sequência conjugada-simétrica:
+    \[ x[n] = x^{\star}[-n] \]
+
+    e se x[n] for real
+
+    \[ x[n] = x^{\star}[-n] = x[-n] \]
+
+    o que implica em $x[n]$ ser par.
+
+    \item Sequência conjugada-antisimétrica:
+    \[ x[n] = -x^{\star}[-n] \]
+
+    e se x[n] for real
+
+    \[ x[n] = -x^{\star}[-n] = -x[-n] \]
+
+    o que implica em $x[n]$ ser ímpar.
+
+    Qualquer soma pode ser escrita pela soma das suas partes conjugada-simétria e antisimétrica.
+
+\end{itemize}
+
+\subsection{Periodicidade}
+
+\begin{itemize}
+    \item Se $x[n] = x[n + kN]$ para N inteiro positivo, k inteiro, então é um sinal periódico. O menor N que satisfaça a equação é o período fundamental.
+\end{itemize}
+
+\subsection{Energia}
+
+\begin{itemize}
+    \item Sinal com energia infinita e potência média finita $\rightarrow$ \textbf{sinal de potência}.
+    
+    \item Sinal com energia finita e potência média nula $\rightarrow$ \textbf{sinal de energia}.
+    
+\end{itemize}
+
+\subsection{Delimitação}
+
+\begin{itemize}
+    \item Limitação em amplitude se existe uma faixa delimitada de amplitudes.
+    \item Uma sequência é absolutamente somável se 
+    
+    \[\sum_{n = -\infty}{\infty}\]
+\end{itemize}
+
+\section{Relações úteis}
+
+\begin{itemize}
+    \item \[\delta[n] = u[n] - u[n - 1]\]
+    \item \[u[n] = \sum_{m = -\infty}^{n} \]
+    \item \[x[n]\delta[n - n_{0} = x[n_{0}]\delta[n - n_{0}]\]
+    \item Para se ter um sinal \textbf{discreto} periódico, é necessário que
+    
+    \[\omega_{0}N = 2\pi r\]
+
+    Nem sempre existem N e r tal que essa relação será comtemplada.
+
+\end{itemize}
+
+\section{Processo de Amostragem}
+\begin{itemize}
+    \item Sinal de tempo discreto é gerada a partir da amostra de um sinal de tempo contínuo da seguinte forma:
+    
+    \[x[n] = x(nT)\]
+    Quando $t = t_{n} = nT$ implica em
+    \[t_{n} = \dfrac{n}{F} = \dfrac{2\pi n}{\Omega}\]
+
+    Onde $F$ denota a frequência de amostragem.
+
+    \item Duas sequências exponenciais podem gerar as mesmas amostras se 
+    
+    \[\Omega_{1} = \Omega_{0} + 2\pi k\]
+
+    \item Aliasing: diferentes sinais contínuos geram o mesmo sinal discreto devido a baixa taxa de amostragem, gerando perda de informação. No espectro da frequência imbuí numa superposição de espectros.
+    \item Para evitar aliasing, frequência de amostragem deve ser maior que a maior frequência do espectro do sinal a ser amostrado.
 \end{itemize}
