@@ -36,6 +36,65 @@
     \item Vale notar que o sinal digital pode ter $n$ quantas de amplitude.
 \end{itemize}
 
+\section{Conceitos Básicos de Sinais Discretos}
+\subsection{Representação}
 \begin{itemize}
-    \item 
+    \item Sinais são representados por sequências de amostras (números).
+    \[\text{Sinal} = \{x[n]\}, n \in \mathbb{N} \]
+
+    \item $x[0]$, numa representação por sequência deve ser indicada por uma flecha.
+    \[x[n] = -1, -2.2, 2_{\uparrow}, 3, 56 \]
+
+    \item Um sinal contínuo pode ser amostrado no tempo, sendo representado por
+    
+    \[x[n] = x_{a}(t)_{t = nT} = x_{a}(nT) \]
+
+    Onde $T$ denota o período de amostragem. A frequência de amostragem $F_{t}$ é o inverso do período.
+
+    \item Sinal Complexo:
+    
+    \[\{x[n]\} = \{x_{re}[n]\} + \{x_{im}[n]\} \]
+    
+    A sequência conjugada é a conjugação de cada termo da sequência.
+
+    \item Sequências podem ser finitas ou infinitas. 
+    \item Seja a sequência finita $x[n]$ definida para o intervalo $ N_{1} \leq n \leq N_{2} $, então o comprimento do intervalo será $N_{2} - N_{1} + 1$.
+
+    \item O comprimento da sequência pode ser alterado adicionando zeros.
+    
+\end{itemize}
+
+\subsection{Norma}
+\begin{itemize}
+    \item Tamanho do sinal pode ser definido usando representação no espaço $L_{p}$:
+    
+    \[|x|_{p} = (\sum_{n = - \infty}^{\infty} |x[n]|^{p})^{\dfrac{1}{p}}\]
+
+    onde $p = 2$ dá o RMS do sinal, $p = 1$ é o valor médio absoluto e $p = \infty$ é o valor absoluto de pico da sequência.
+
+\end{itemize}
+\subsection{Operações em sequências}
+\begin{itemize}
+    \item \textbf{Modulação em amplitude}:
+    \[y[n] = x[n] \cdot w[n] \]
+
+    Essencialmente o uso da amplitude de um sinal para escalar ou modular a amplitude do outro.
+
+    \item \textbf{Adição}:
+    \[y[n] = x[n] + w[n] \]
+
+    \item \textbf{Multiplicação}:
+    \[y[n] = A \cdot x[n] \]
+
+    Um ganho no sinal.
+
+    \item \textbf{Deslocamento no tempo}:
+    
+    \[y[n] = x[n - N] \]
+
+    Para $N > 0$, atraso
+    Para $N < 0$, avanço
+
+    
+    
 \end{itemize}
