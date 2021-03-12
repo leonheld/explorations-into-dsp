@@ -224,3 +224,187 @@
     \item Aliasing: diferentes sinais contínuos geram o mesmo sinal discreto devido a baixa taxa de amostragem, gerando perda de informação. No espectro da frequência imbuí numa superposição de espectros.
     \item Para evitar aliasing, frequência de amostragem deve ser maior que a maior frequência do espectro do sinal a ser amostrado.
 \end{itemize}
+
+% Vídeos do 3 pra frente
+
+\section{Alguns Sistemas}
+\subsection{Sistema Acumulador}
+
+
+\begin{itemize}
+    \item Sistema análogo ao integrador no caso contínuo
+
+    \[y[n] = \sum^{n}_{l = -\infty} x[l] = \sum^{n - 1}_{l = -\infty} x[l] = y[n - 1] + x[n]\]
+
+    \item Simplificação gera algoritmo rápido (basicamente mantendo uma cópia da soma realizada até o índice $n - 1$).
+    
+\end{itemize}
+
+%Vídeo 4
+\subsection{Sistema Média Móvel}
+
+
+   \[\dfrac{1}{M} \sum_{k = 0}^{M - 1} x[n - k]\]
+
+   Simplificando fica
+
+   \[y[n] = y[n - 1] + \dfrac{1}{M}(x[n] - x[n - M])\]
+
+%Vídeo 5
+\subsection{Sistema Média Móvel Exponencialmente Ponderado}
+
+\[y[n] = \sum_{k = 0}^{\infty}\alpha^{k} \cdot x[n - k]  \]
+
+\[y[n] = \alpha y[n - 1] + x[n]\]
+
+Uma versão generalizada do acumulador.
+
+\subsection{Interpoladores}
+
+Estimação de amostras entre duas amostras adjacentes.
+
+A forma mais simples é um polinômio de ordem 1, aka uma reta.
+
+Exemplo de interpolador de fator 2:
+
+\[y[n] = x[n] + \dfrac{1}{2}(x[n - 1] + x[n + 1])\]
+
+Claramente dá pra observar que é realizada a inserção da amostra $n$ faltante pela média das amostras adjacentes.
+
+\subsection{Filtro Mediana}
+
+\begin{definition}
+    A mediana de um conjunto de $2K + 1$ valores é o valor que fica entre K números maiores que ele mesmo e $K$ números menores que ele mesmo.
+
+\end{definition}
+
+Ou seja: ordenando os valores por amplitude, o valor do exato meio é a mediana.
+
+O filtro mediana é utilizado pra retirar spikes do sinal. Os spikes (valores altos) vão pras extremidades e potencialmente podem ser retirados.
+
+\section{Classificação de Sistemas Discretos}
+
+Lineares, Invariantes, Causal, Estável, Passíveis e Sem Perdas.
+
+\begin{itemize}
+    \item Linear: se a soma das saídas for a soma das entradas passadas pelo sistema. Acumulador é linear, mediana é não linear.
+    \item Invariantes: indepente de quanto a entrada foi aplicada no sistema.
+    \[x[n] = x_{1}[n - n_{o}] \rightarrow y[n] = y_{1}[n - n_{o}]\]
+
+    Ou seja, não importa quando a entrada $x_{1}$ foi aplicada, a saída vai ser exatamente a mesma, só que deslocada.
+
+    \item Causal: se chutou e gritou, é causal. Se gritou e chutou, não.
+    
+    A saída do sistema em $N$ só depende das entradas até $N$, e não de entradas futuras.
+
+    \item Estável: BIBO, bounded input, bounded output.
+    
+    \item Passível: a saída possuí no máximo a mesma energia da entrada.
+    
+    \item Lossless: mesma coisa que o passível, mas a energia da saída é exatamente a mesma da entrada.
+\end{itemize}
+
+\section{Soma de Convolução}
+
+\[x[n] = \sum_{k = \infty}^{\infty} x[k]d[n - k] \]
+
+\section{Interconexão de Sistemas}
+
+Se em cascata e $h_{1}[n] * h_{2}[n] = \delta[n]$, então $h_{1}[n]$ é sistema inverso de $h_{2}[n]$.
+
+Em cascata convoluí, em paralelo soma.
+
+\section{Estabilidade de Sistemas LIT}
+Para verificar estabilidade (e outras propriedades) de um sistema LIT, basta verificar sua resposta ao impulso.
+
+Estabilidade no sentido BIBO (bounded input, bounded output)
+
+É estável nesse sentido se a soma das amostras geradas pela resposta ao impulso for finita (então, se for monotonamente decrescente ou alternadamente decrescente, uma sequência que não explode)
+
+\[S = \sum_{n = -\infty}^{\infty} |h[n]| < \infty  \]
+\section{Causalidade em Sistemas LIT}
+
+Definição de um Sistema Causal: SÓ GRITA SE CHUTAR.
+
+No instante $n$ não usa amostras anteriores a $n$ para calcular a saída.
+
+Matematicamente, é possível observar causalidade se 
+
+\[h[k] = 0, \text{para } k < 0\]
+
+O $0$ do sistema também pode estar deslocado, então, generalizando
+
+\[h[k - t_{0}] = 0 \text{ para } k < t_{0}\]
+
+\section{Classes de Sistemas LTI}
+
+\subsection{Equação Linear de Diferenças a coeficientes Constantes}
+
+\[\sum_{k = 0}^{N}d_{k} y[n - k] = \sum_{k = 0}^{M}p_{k}x[n - k]\]
+
+Com ordem do sistema dada por \texttt{MAX(N,M)}
+
+Se o Sistema for Causal e rearranjando os termos
+
+\[y[n] = -\sum_{k = 1}^{N}\dfrac{d_{k}}{d_{0}} y[n - k] + \sum_{k = 0}^{M}\dfrac{p_{k}}{d_{0}}x[n - k]\]
+
+\subsection{Pelo Comprimento da Resposta ao Impulso}
+
+\begin{itemize}
+    \item \textbf{FIR}
+    
+    \[h[n] = 0, N_{1} < n < N_{2}\]
+
+    com soma de Convolução
+
+    \[y[n] = \sum_{n = N_{1}}^{N_{2}}h[k]x[n - k] \]
+
+    \item \textbf{IIR}
+    
+    Comprimento infinito.
+
+    \item \textbf{Sistemas Recursivos}
+    
+    Envolve amostras passadas, presente e amostras passadas da saída.
+
+
+\section{Correlação de Sinais}
+
+Comparação entre sinal de referência e sinal recebido. Ou pra detectar atraso de transmissão.
+
+A métrica de similaridade é dada pela sequência de correlação cruzada 
+
+\[r_{xy}[l] = \sum_{n = -\infty}^{\infty}x[n]y[n - l] \]
+
+$l$ inteiro, denominado "lag".
+
+Essa operação não é comutativa, e a saída vai ser revertida no tempo
+
+\[r_{xy}[l] = r_{xy}[-l]\]
+
+Possível também calcular a Sequência de Correlação
+
+\[r_{xx} = \sum_{n = -\infty}^{\infty}x[n]x[n - l]\]
+
+Essa soma é igual uma convolução com o sinal do termo invertido, invertido. Logo, é possível expressar como convolução se 
+
+\[r_{xy}[l] = x[l] * y[-l]\]
+
+passando por um sistema com resposta ao impulso $h[n] = y[-n]$
+
+Fazendo o determinante da matriz de correlação de dois sinais se obtém
+
+\[r_{xx}[0] \cdot r_{yy} - {r^{2}}_{xy}[l] \geq 0\]
+
+ou 
+
+\[|r_{xy}[l]| \leq \sqrt{r_{xx}[0] \cdot r_{yy}[0]}\]
+
+Onde $r_{yy}[0], r_{xx}[0]$ são as energias de cada sinal.
+
+Se $y[n] = x[n]$
+
+\[|r_{yx}[l]| \leq  r_{xx}[0] \]
+
+Pode ser utilizado pra detectar período em sinais com ruído aditivo, já que a combinação da correlação do ruído com os outros sinais vai ser pequena. 
+\end{itemize}
