@@ -1,0 +1,51 @@
+\chapter{Série de Fourier}
+\section{Introdução}
+
+Decomposição de funções numa base exponencial complexa.
+
+\[y[n] = z^{n} \sum^{+\infty}_{k = -\infty}h[k] z^{-k}\]
+
+Ou 
+
+\[y[n] = z^{n}\mathfrak{H}(z)\]
+
+Onde $z^{n}$ é autofunção da transformação linear e $\mathfrak{H}(z) = \sum^{+\infty}_{k = -\infty}h[k] z^{-k}$ é autovalor da transformação linear.
+
+A parte boa é que qualquer sinal pode ser decomposto em sinais exponenciais ponderados
+
+\[x[n] = \sum^{k}_{}a_{k}z^n_k\]
+
+onde a base exponencial é
+
+\[z^n_k = e^{jk \dfrac{2 \pi n}{N}} \]
+
+Lembrando que essa não é a transformação, e sim a série. Logo o sinal representado precisa necessariamente ter um período N.
+
+A diferença do caso contínuo é que no discreto, para essa base específica, existem um conjunto finito de $N$ possíveis, logo se consegue representar um sinal com uma soma finita de exponenciais ponderadas.
+
+\section{Propriedades da Série de Fourier}
+
+Se $x[n] \rightarrow $ períodico, com período fundamental $N$, então
+
+\[x[n] = \sum^{}_{k = <N>}a_{k}e^{jk \dfrac{2 \pi n}{N}}\]
+
+Onde $k$ varia entre $N$ índices quaisquer consecutivos e $a_k$ são os \textbf{coeficientes} da série de Fourier.
+
+\begin{theorem}
+    A soma dos valores de uma exponencial complexa em um período é zero a não ser que essa exponencial seja constante.
+\end{theorem}
+
+Usando o resultado acima e alguma álgebra (vide caderno, página 31 para dedução) é possível chegar numa fórmula para os coeficientes da série:
+
+\[a_{r} = \dfrac{1}{N} \sum^{}_{n = <N>}x[n]e^{-jr(\dfrac{2 \pi}{N})n}\]
+
+onde o índice $r$ fica dentro da \it{range} $<N>$.
+
+Em geral, $a_k = a_{k + n}$, por causa da periodicidade dos coeficientes.
+
+Usando aquele trick de escrever um somatório como multiplicação de matrizes dá pra achar os coeficientes via inversão (ou outros algoritmos de solução de sistema linear matricial).
+
+
+
+
+
