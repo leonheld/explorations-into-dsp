@@ -1,0 +1,33 @@
+\chapter{Conversão A/D, D/A, amostragem de sinais discretos, aumento e redução de taxa, decimação e interpolação}
+\section{Conversão de sinais analógicos para digitais}
+
+\begin{itemize}
+    \item Padrão de processamento geralmente utilizado: Filtragem $\rightarrow$ C/D $\rightarrow$ Processamento Discreto $\rightarrow$ C/A $\rightarrow$ Filtragem
+\end{itemize}
+
+\subsection{A/D}
+
+Modulação em trem de impulsos, a densidade de pulsos depende do período do trem, o que imbuí em uma relação de normalização do indíce pelo período de amostragem.
+
+Se $x_{p}(t) = x(t) p(t)$
+
+\[X_{p}(\omega) = \frac{1}{T}\sum_{k = -\infty}^{+\infty}X(\omega - k\omega_{s})\]
+
+Um conjunto de réplicas do espectro original, que repete com $\omega_{s}$ (que vai impactar a escolha do período).
+
+Se $\omega_{s} > 2 \cdot \omega_{max}$, não há recobrimento entre as réplicas do espectro.
+
+A relação em frequência do sinal amostrado com o sinal contínuo
+
+\[X(\Omega) = X_{p}(\omega) \text{ quando } \omega = \frac{\Omega}{T}\]
+
+\subsection{D/A}
+
+D/A deve fazer o reverso do escalamento realizado pelo A/D de $\Omega = \omega t$
+
+A transformada do pulso amostrador utilizado gera um $sinc$, que possuí distorção em frequência (apesar da fase ser linear).
+
+Se $\tau = t$, é um sample-and-hold :)
+
+\subsection{Amostragem de Sinais Discretos}
+

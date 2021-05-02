@@ -39,13 +39,44 @@ Usando o resultado acima e alguma álgebra (vide caderno, página 31 para deduç
 
 \[a_{r} = \dfrac{1}{N} \sum^{}_{n = <N>}x[n]e^{-jr(\dfrac{2 \pi}{N})n}\]
 
-onde o índice $r$ fica dentro da \it{range} $<N>$.
+onde o índice $r$ fica dentro da range $<N>$.
 
 Em geral, $a_k = a_{k + n}$, por causa da periodicidade dos coeficientes.
 
 Usando aquele trick de escrever um somatório como multiplicação de matrizes dá pra achar os coeficientes via inversão (ou outros algoritmos de solução de sistema linear matricial).
 
+\section{Transformada de Fourier Discreta a partir da Série de Fourier}
+
+Extensão da série de Fourier para sinal aperiódico.
+
+\begin{equation} 
+    X(\Omega) = \sum^{+\infty}_{n = -\infty}x[n]e^{-j\Omega n}
+\end{equation}
+Possível recuperar $x[n]$ reescrevendo os coeficientes da série em função de uma amostragem com período $\Omega_{0} = \dfrac{2\pi}{N}$ com
+
+\[a_{k} = \dfrac{1}{N} X(k\Omega_{0})\]
+
+Ou
+
+\[\tilde{x}[n] = \dfrac{1}{2\pi} \sum^{}_{k = <N>}X(k\Omega_{0}) \cdot e^{jk\Omega_{0}n}\Omega_{0}\]
 
 
+Se $N \rightarrow \infty$, então
 
+\[k\Omega_{0} \rightarrow \Omega\]
 
+\[\Omega_{0} \rightarrow d\Omega\]
+
+\[\sum \rightarrow \int\]
+
+De forma que
+
+\begin{equation} 
+    x[n] = \frac{1}{2\pi}\int^{}_{2 \pi}X(\Omega)e^{j\Omega n}d\Omega
+\end{equation}
+
+onde
+
+\begin{equation} 
+    a_{k} = \dfrac{1}{N}X(k\Omega_{0})
+\end{equation}
